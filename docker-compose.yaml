@@ -14,19 +14,55 @@ services:
     #      size: 134217728 # 128*2^20 bytes = 128Mb
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: sample_pass
       POSTGRES_DB: example
+    volumes:
+      - masterset-db-volume:/var/lib/postgresql
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    # NEEDED FOR LOCAL DEVELOPMENT
     ports:
+    #  - "${DB_PORT}:5432"
       - "5433:5432"
+    networks:
+      - masterset-backend
 
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:9.12
+    image: dpage/pgadmin4:9.13
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: test@test.com
       PGADMIN_DEFAULT_PASSWORD: test_pass
-    ports:
-      - "8080:80"
     depends_on:
       - db
+    volumes:
+      - pgadmindata:/var/lib/pgadmin 
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      - masterset-backend
+
+  express:
+    # image: 
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: express-backend
+    env_file: .env
+    depends_on:
+      - pgadmin
+    networks:
+      - masterset-backend
+    ports:
+     - "127.0.0.1:3000:3000"
+
+volumes:
+  masterset-db-volume:
+    # Set external=true to connect to existing database
+    # external: true
+    name: masterset-data
+  pgadmindata:
+    name: pgadmin-data
+
+networks:
+  masterset-backend:
