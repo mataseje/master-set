@@ -1,10 +1,7 @@
-import React from 'react';
-
 // Components
 import Card from '../../components/Dashboard/Card/dashboard_card';
 import Table from '../../components/Dashboard/Table/dashboard_table';
 
-import alakazam from '../../assets/alakazam.jpg'
 
 function DashboardPage() {
   return (
@@ -17,7 +14,8 @@ function DashboardPage() {
           <h2>My Cards</h2>
           <div className='col-md-6'>
             <Card
-              image={alakazam}
+              // image={alakazam}
+              image='/assets/alakazam.jpg'
               title='Alakazam'
               description='Base Set Unlimited (Holo)'
             />
