@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom"
 
   type CardDetails = {
+    id: number,
     name: string;
     card_number: string;
     set: string;
     image: string;
   }
 
-function browse_item({name, card_number, set, image}: CardDetails) {
+function browse_item({id, name, card_number, set, image}: CardDetails) {
 
   return (
     <>
       {/* Card Parent Div */}
-      <div id="card-summary" className="row border border-secondary-subtle">
+      <div id="card-parent" 
+           className="row border border-secondary-subtle rounded-5">
 
         {/* Image Path */}
-        <div className="col" id="card-image-parent-col">
-          <Link to={`/card/${name.toLowerCase()}`}>
+        <div id="card-left-img" className="col">
+          <Link to={`/card/${id}`}>
             <img id="img-cover" 
                 src={`../assets/${image}`} 
                 className="mw-100 rounded-3" 
@@ -26,7 +28,7 @@ function browse_item({name, card_number, set, image}: CardDetails) {
         </div>
 
         {/* Item Details */}
-        <div className="col" id="card-text-parent-col">
+        <div id="card-right-text" className="col">
           <div className="card-body ms-3 mt-2">
               <h5 className="card-title">
                   {name}

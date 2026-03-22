@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 // Pages
-import BrowsePage from './pages/Browse/BrowsePage.js'
-import DashboardPage from './pages/Dashboard/DashboardPage.js'
-import HomePage from './pages/Home/HomePage.js'
+import BrowsePage from './pages/Browse/BrowsePage'
+import CardPage from './pages/Card/CardPage'
+import DashboardPage from './pages/Dashboard/DashboardPage'
+import HomePage from './pages/Home/HomePage'
 import RootLayout from './layouts/Root'
 
 export const router = createBrowserRouter([
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
           path: 'browse', 
           element: <BrowsePage />
         },
+        {
+          path: 'card/:card_id',
+          element: <CardPage />
+        }
       ]
     }
 ]);

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
 
 import { getRequest } from '../../utils/fetch';
 import BreadCrumbs from "../../components/Browse/BreadCrumbs";
@@ -45,20 +44,19 @@ function BrowsePage() {
 
       <BreadCrumbs />
       
-      <div id="" className="row">
+      <div id="" className="row justify-content-center">
         { cards ? cards.map(card => (
 
           // TODO: On Mobile, card details should be hidden
-          // <Link to={`/card/${card.name}`}>
-            <div id="browse-item-parent" className="col-12 col-md-3 me-1 ms-1 mb-2" key={card.card_id}>
-              <BrowseItem 
-                name={card.name}
-                card_number={card.number}
-                set={card.set}
-                image={card.image}
-              />
-            </div>
-          // </Link>
+          <div id="browse-item-parent" className="col-12 col-md-3 me-1 ms-1 mb-3" key={card.card_id}>
+            <BrowseItem 
+              id={card.card_id}
+              name={card.name}
+              card_number={card.number}
+              set={card.set}
+              image={card.image}
+            />
+          </div>
         )) : (
           <tr>
             <td>No Cards Found ...</td>
