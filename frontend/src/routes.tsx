@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 // Pages
-import BrowseCards from './pages/BrowseCards/BrowseCards' 
-import BrowseSets from './pages/BrowseSets/BrowseSets'
+import BrowseCards from './pages/BrowseCards/BrowseCardsPage' 
+import BrowseSets from './pages/BrowseSets/BrowseSetsPage'
 import CardPage from './pages/Card/CardPage'
 import DashboardPage from './pages/Dashboard/DashboardPage'
 import HomePage from './pages/Home/HomePage'
