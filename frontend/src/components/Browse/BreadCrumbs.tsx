@@ -1,13 +1,35 @@
 import { Link } from 'react-router-dom'
 
-function BreadCrumbs() {
+interface BreadCrumbItem{
+  label: string;
+  link: string;
+  active?: boolean;
+}
+
+interface BreadCrumbsProps{
+  items: BreadCrumbItem[];
+  className?: string;
+}
+
+function BreadCrumbs({ items, className }: BreadCrumbsProps ) {
+
   return (
     <>
       <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><Link to="/browse">Browse</Link></li>
-          <li className="breadcrumb-item"><Link to="#">Sets</Link></li>
-          <li className="breadcrumb-item active" aria-current="page">Base Set</li>
+        <ol className={`breadcrumb ${className ?? ""}`}>
+          {items.map((item, index) => (
+            <li
+              key={index}
+              className={`breadcrumb-item ${item.active ? "active" : ""}`}
+              aria-current={item.active ? "page" : undefined}
+            >
+              {item.active || !item.link ? (
+                item.label
+              ) : (
+                <Link to={item.link}>{item.label}</Link>
+              )}
+            </li>
+          ))}
         </ol>
       </nav>
     </>

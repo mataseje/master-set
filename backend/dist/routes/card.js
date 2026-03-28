@@ -10,6 +10,8 @@ router.get('/:card_id', async (req, res) => {
     try {
         const card_id = req.params.card_id;
         console.log('card_id: ', card_id);
+        // Request all card info for the specific card
+        // Request (index, name & image) for the next card index + previous index 
         const db_query = await db_1.default.query(`SELECT * \
                                          FROM cards \
                                          WHERE card_id = $1`, [card_id]);

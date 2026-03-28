@@ -8,8 +8,7 @@ import { Link } from "react-router-dom"
     image: string;
   }
 
-function browse_item({id, name, card_number, set, image}: CardDetails) {
-
+function BrowseCardItem({id, name, card_number, set, image}: CardDetails) {
   return (
     <>
       {/* Card Parent Div */}
@@ -51,4 +50,4 @@ function browse_item({id, name, card_number, set, image}: CardDetails) {
   )
 }
 
-export default browse_item
+export default BrowseCardItem

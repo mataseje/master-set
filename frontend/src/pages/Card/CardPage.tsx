@@ -84,9 +84,9 @@ function CardPage() {
 
         {/* Card Pricing */}
         {/* TODO: Implement Filtering */}
-        <div className='dropdown'>
-          <button className='btn btn-secondary '></button>
-        </div>
+        {/* <div className='dropdown'>
+          <button className='btn btn-secondary'></button>
+        </div> */}
 
         <div id='pricing-table'>
           <PricingTable />

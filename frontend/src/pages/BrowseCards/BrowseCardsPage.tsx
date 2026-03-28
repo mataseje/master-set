@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 
 import { getRequest } from '../../utils/fetch';
 import BreadCrumbs from "../../components/Browse/BreadCrumbs";
-import BrowseItem from "../../components/Browse/BrowseItem";
+import BrowseItem from "../../components/Browse/BrowseCardItem";
 
 import "./Browse.css"
 
-function BrowsePage() {
+function BrowseCards() {
 
   type Card = {
     card_id: number;
@@ -18,9 +18,10 @@ function BrowsePage() {
 
   const [cards, setCards] = useState<Card[]>([]); 
 
+  // TODO: This page should request all cards within a set and then load them.
   const getCardList = async () => {
     try {
-      const response = await getRequest('http://localhost:3000/browse', null);
+      const response = await getRequest(`http://localhost:3000/browse/set/${set_id}`, null);
       if (response.ok) {
         const jsonResponse = await response.json();
         setCards(jsonResponse);
@@ -41,8 +42,19 @@ function BrowsePage() {
   return (
     <>
       <h2>Browse Cards</h2>
-
-      <BreadCrumbs />
+      <BreadCrumbs 
+        items={[
+          {
+            label:'Sets',
+            link:'/browse'
+          },
+          {
+            label:'',
+            link:`/${cards.set}`
+          },
+        ]
+        }
+      />
       
       <div id="" className="row justify-content-center">
         { cards ? cards.map(card => (
@@ -69,4 +81,4 @@ function BrowsePage() {
   )
 }
 
-export default BrowsePage
+export default BrowseCards

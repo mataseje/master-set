@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 // Pages
-import BrowsePage from './pages/Browse/BrowsePage'
+import BrowseCards from './pages/BrowseCards/BrowseCards' 
+import BrowseSets from './pages/BrowseSets/BrowseSets'
 import CardPage from './pages/Card/CardPage'
 import DashboardPage from './pages/Dashboard/DashboardPage'
 import HomePage from './pages/Home/HomePage'
@@ -29,7 +30,11 @@ export const router = createBrowserRouter([
         },
         {
           path: 'browse', 
-          element: <BrowsePage />
+          element: <BrowseSets />
+        },
+        {
+          path: 'browse/set/:set', 
+          element: <BrowseCards />
         },
         {
           path: 'card/:card_id',

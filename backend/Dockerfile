@@ -12,6 +12,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && echo 'set bell-style none' >> /etc/inputrc
 
+# TODO: Auto-compile before each build (npm run build)
 # WORKDIR /app
 
 COPY . .
