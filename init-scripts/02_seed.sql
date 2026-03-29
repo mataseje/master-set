@@ -1,12 +1,12 @@
 BEGIN;
 
-INSERT INTO sets(name)
+INSERT INTO sets(set_name)
 VALUES 
     ('base'),
     ('fossil'),
     ('jungle');
 
-INSERT INTO cards(name, set_id, number, image)
+INSERT INTO cards(card_name, set_id, number, image)
 VALUES
     ('Alakazam', 1, '1/102', 'alakazam.jpg'),
     ('Blastoise', 1, '2/102', 'blastoise.jpg'),

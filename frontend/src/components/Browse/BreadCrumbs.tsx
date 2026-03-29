@@ -15,7 +15,7 @@ function BreadCrumbs({ items, className }: BreadCrumbsProps ) {
 
   return (
     <>
-      <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" className="mt-3">
         <ol className={`breadcrumb ${className ?? ""}`}>
           {items.map((item, index) => (
             <li

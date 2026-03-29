@@ -2,13 +2,13 @@ BEGIN;
 
 CREATE TABLE sets (
     set_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL,
+    set_name VARCHAR(255) UNIQUE NOT NULL,
     release_date VARCHAR(255) DEFAULT NULL
 );
 
 CREATE TABLE cards (
     card_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    card_name VARCHAR(255) NOT NULL,
     set_id INTEGER,
     number VARCHAR(255) NOT NULL,
     image VARCHAR(255) DEFAULT NULL,

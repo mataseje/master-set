@@ -3,10 +3,11 @@ import { createBrowserRouter } from 'react-router-dom'
 // Pages
 import BrowseCards from './pages/BrowseCards/BrowseCardsPage' 
 import BrowseSets from './pages/BrowseSets/BrowseSetsPage'
-import CardPage from './pages/Card/CardPage'
+import CardPage from './pages/ CardSummary/CardPage'
 import DashboardPage from './pages/Dashboard/DashboardPage'
 import HomePage from './pages/Home/HomePage'
 import RootLayout from './layouts/Root'
+import SearchPage from './pages/SearchPage/SearchPage'
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
         {
           path: 'browse/set/:set', 
           element: <BrowseCards />
+        },
+        {
+          path: 'search', 
+          element: <SearchPage />
         },
         {
           path: 'card/:card_id',

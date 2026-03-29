@@ -10,11 +10,11 @@ function BrowseSets() {
 
   type Set = {
     set_id: number;
-    name: string;
+    set_name: string;
     release_date: string;
   }
 
-  const [cardSets, setCardSet] = useState([]);
+  const [cardSets, setCardSet] = useState<Set[]>([]);
 
   const getSetList = async () => {
     try {
@@ -35,9 +35,10 @@ function BrowseSets() {
     getSetList();
   }, [])
 
+  console.log('sets: ', cardSets)
   return (
     <>
-      <div className='container mt-5'>
+      <div className='container'>
         <BreadCrumbs 
           items={[
             {
@@ -46,6 +47,7 @@ function BrowseSets() {
             }]
           }
         />
+      <h2>Browse Sets</h2>
       
       <div className="container d-flex flex-column align-items-center">
         { cardSets ? cardSets.map(set => (
@@ -54,9 +56,9 @@ function BrowseSets() {
           <div id="browse-item-parent" className="col-12 col-md-5 me-1 ms-1 mb-3" key={set.set_id}>
             <BrowseSetItem 
               id={set.set_id}
-              name={toSentenceCase(set.name)}
+              set_name={toSentenceCase(set.set_name)}
               release_date="Jan 20, 1993"
-              image={`../../assets/sets/${set.name}.jpg`}
+              image={`../../assets/sets/${set.set_name}.jpg`}
             />
           </div>
         )) : (

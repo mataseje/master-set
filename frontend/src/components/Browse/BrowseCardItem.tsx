@@ -2,45 +2,55 @@ import { Link } from "react-router-dom"
 
   type CardDetails = {
     id: number,
-    name: string;
+    card_name: string;
     card_number: string;
-    set: string;
+    set_name: string;
     image: string;
   }
 
-function BrowseCardItem({id, name, card_number, set, image}: CardDetails) {
+
+function BrowseCardItem({id, card_name, card_number, set_name, image}: CardDetails) {
   return (
     <>
       {/* Card Parent Div */}
       <div id="card-parent" 
            className="row border border-secondary-subtle rounded-5">
 
-        {/* Image Path */}
+        {/* Left Side (Image) */}
         <div id="card-left-img" className="col">
           <Link to={`/card/${id}`}>
-            <img id="img-cover" 
-                src={`../assets/${image}`} 
-                className="mw-100 rounded-3" 
-                style={{maxHeight:"350px", maxWidth:"260px"}}
-                loading="lazy"/>
+            <div className="d-flex justify-content-center align-center overflow-hidden mt-2 mb-2 ms-1 rounded-4"
+                  style={{height:"200px", 
+                          width:"200px",
+                        }}
+                  >
+              <img id="img-cover" 
+                src={`../../assets/${image}`} 
+                  className="rounded-4" 
+                  style={{maxHeight:"100%", 
+                          maxWidth:"100%",
+                          objectFit:"contain",
+                        }}
+                  loading="lazy"/>
+            </div>
           </Link>
         </div>
 
-        {/* Item Details */}
+        {/* Right Side (Details) */}
         <div id="card-right-text" className="col">
           <div className="card-body ms-3 mt-2">
               <h5 className="card-title">
-                  {name}
+                  {card_name}
               </h5><br />
               <p className="card-text">
                 <strong>Card Number:</strong><br/>
                 {card_number}
               </p>
               <p className="card-text">
-                <small className="text-muted">
+                {/* <small className="text-muted"> */}
                   <strong>Set Name:</strong><br/>
-                  {set}
-                </small>
+                  {set_name}
+                {/* </small> */}
               </p>
           </div>
         </div>

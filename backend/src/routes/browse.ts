@@ -32,10 +32,17 @@ router.get('/set/:id', async (req: Request, res: Response) => {
         return res.status(400).send("Invalid ID");
       };
 
-      const db_query = await pool.query('SELECT * \
-                                         FROM cards \
-                                         WHERE set_id = $1', [set_id_int])
-      return res.status(200).json(db_query.rows[0]);
+      const db_query = await pool.query(` 
+        SELECT * \
+        FROM cards \
+        INNER JOIN sets ON cards.set_id = sets.set_id \
+        WHERE cards.set_id = $1 \
+        ORDER BY card_id ASC`, [set_id_int]); 
+      
+      console.log('db_query', db_query);
+      console.log('db_query.rows', db_query.rows);
+
+      return res.status(200).json(db_query.rows);
     } catch(e) {
       console.error('Database query error: ', e);
       res.status(500).json({error: 'Database Request Error'})

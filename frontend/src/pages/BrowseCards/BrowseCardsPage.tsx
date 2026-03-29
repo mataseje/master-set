@@ -1,30 +1,37 @@
 import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom";
 
+import { toSentenceCase } from "../../utils/common";
 import { getRequest } from '../../utils/fetch';
 import BreadCrumbs from "../../components/Browse/BreadCrumbs";
-import BrowseItem from "../../components/Browse/BrowseCardItem";
+import BrowseCardItem from "../../components/Browse/BrowseCardItem";
 
 import "./Browse.css"
 
+type Card = {
+  card_id: number;
+  card_name: string;
+  image: string;
+  set_name: string;
+  number: string;
+}
+
 function BrowseCards() {
 
-  type Card = {
-    card_id: number;
-    name: string;
-    image: string;
-    set: string;
-    number: string;
-  }
+  // Retrieve set_id from url
+  const location = useLocation();
 
   const [cards, setCards] = useState<Card[]>([]); 
+  const [cardSet, setCardSet] = useState<string>('');
 
-  // TODO: This page should request all cards within a set and then load them.
+  // Retrieve all cards from requested set
   const getCardList = async () => {
     try {
-      const response = await getRequest(`http://localhost:3000/browse/set/${set_id}`, null);
+      const response = await getRequest('http://localhost:3000' + location.pathname, null);
       if (response.ok) {
         const jsonResponse = await response.json();
         setCards(jsonResponse);
+        setCardSet(jsonResponse[0].set_name);
         
       } else {
         console.log('response NOT OK: ', response);
@@ -38,34 +45,57 @@ function BrowseCards() {
     getCardList();
   }, [])
 
-
   return (
     <>
-      <h2>Browse Cards</h2>
-      <BreadCrumbs 
-        items={[
-          {
-            label:'Sets',
-            link:'/browse'
-          },
-          {
-            label:'',
-            link:`/${cards.set}`
-          },
-        ]
-        }
-      />
+      {/* Upper Page */}
+      <div className="container">
+        {/* Bread Crumbs */}
+        <BreadCrumbs 
+          items={[
+            {
+              label:'Sets',
+              link:'/browse'
+            },
+            {
+              label: toSentenceCase(cardSet),
+              link: location.pathname
+            },
+          ]
+          }
+        />
+
+        <h2>Browse Cards</h2>
+        {/* Set Logo */}
+        <div className="row justify-content-center">
+          <div className="border d-flex justify-content-center align-center overflow-hidden mt-2 mb-2 rounded-4"
+            style={{height:"125px", 
+                      width:"250px",
+                      background: "#fff",
+                    }}
+          >
+            <img src={`../../assets/sets/${cardSet}.jpg`} 
+              style={{maxHeight:"100%", 
+                      maxWidth:"100%",
+                      objectFit:"contain",
+                    }}
+            />
+          </div>
+        </div>
+        <hr />
+
+      </div>
       
-      <div id="" className="row justify-content-center">
+      {/* Iterate and display Card for each card found in the set */}
+      <div id="" className="row justify-content-center mt-5">
         { cards ? cards.map(card => (
 
           // TODO: On Mobile, card details should be hidden
           <div id="browse-item-parent" className="col-12 col-md-3 me-1 ms-1 mb-3" key={card.card_id}>
-            <BrowseItem 
+            <BrowseCardItem 
               id={card.card_id}
-              name={card.name}
+              card_name={card.card_name}
               card_number={card.number}
-              set={card.set}
+              set_name={toSentenceCase(card.set_name)}
               image={card.image}
             />
           </div>

@@ -1,0 +1,18 @@
+.carousel-item {
+  text-align: center;
+  /* Caret position */
+  position: relative;
+}
+
+.carousel-item img {
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  /* Caret color */
+  filter: invert(1) brightness(200%) !important;
+}

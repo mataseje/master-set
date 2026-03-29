@@ -2,12 +2,14 @@ import { Link } from "react-router-dom"
 
   type SetDetails = {
     id: number,
-    name: string,
+    set_name: string,
     release_date: string,
     image: string;
   }
 
-function BrowseSetItem({id, name, release_date, image}: SetDetails) {
+function BrowseSetItem({id, set_name, release_date, image}: SetDetails) {
+  console.log('image: ', image);
+
   return (
     <>
       {/* Card Parent Div */}
@@ -37,8 +39,8 @@ function BrowseSetItem({id, name, release_date, image}: SetDetails) {
           {/* Right Side (Details) */}
           <div id="card-right-text" className="col">
             <div className="card-body ms-3 mt-2">
-                <h5 className="card-title">
-                  {name}
+                <h5 className="card-title mt-5">
+                  {set_name}
                 </h5><br />
                 <p className="card-text">
                   <small className="text-muted">

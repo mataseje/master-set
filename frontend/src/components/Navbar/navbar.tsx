@@ -17,12 +17,15 @@ function navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
+              {/* TODO: Add 'active' status */}
               <li className="nav-item">
                 <Link to="/browse" className="nav-link">Browse</Link>
               </li>
+              {/* TODO: Add 'active' status */}
+              <li className="nav-item">
+                <Link to="/search" className="nav-link">Search</Link>
+              </li>
+              {/* TODO: Only show if signed in */}
               <li className="nav-item">
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
               </li>
