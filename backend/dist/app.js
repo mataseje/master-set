@@ -7,11 +7,13 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const browse_1 = __importDefault(require("./routes/browse"));
 const card_1 = __importDefault(require("./routes/card"));
+const search_1 = __importDefault(require("./routes/search"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/browse', browse_1.default);
 app.use('/card', card_1.default);
+app.use('/search', search_1.default);
 const port = 3000;
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

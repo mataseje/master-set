@@ -37,7 +37,7 @@ router.get('/set/:id', async (req, res) => {
         FROM cards \
         INNER JOIN sets ON cards.set_id = sets.set_id \
         WHERE cards.set_id = $1 \
-        ORDER BY card_id ASC`, [set_id_int]);
+        ORDER BY card_name ASC`, [set_id_int]);
         console.log('db_query', db_query);
         console.log('db_query.rows', db_query.rows);
         return res.status(200).json(db_query.rows);

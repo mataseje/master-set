@@ -2,6 +2,7 @@ import express, {Express, Request, Response} from 'express';
 import cors, { CorsOptions } from 'cors';
 import browse from './routes/browse'
 import card from './routes/card'
+import search from './routes/search'
 
 
 const app: Express = express();
@@ -11,6 +12,7 @@ app.use(express.json())
 
 app.use('/browse', browse);
 app.use('/card', card);
+app.use('/search', search);
 
 const port: number = 3000;
 app.listen(port, () => {
