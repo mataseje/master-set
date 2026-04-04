@@ -3,21 +3,32 @@ BEGIN;
 CREATE TABLE sets (
     set_id SERIAL PRIMARY KEY,
     set_name VARCHAR(255) UNIQUE NOT NULL,
+    num_cards SMALLINT DEFAULT NULL,
     release_date VARCHAR(255) DEFAULT NULL
+);
+
+CREATE TABLE tcgs (
+    tcg_id SERIAL PRIMARY KEY,
+    tcg_name VARCHAR(255) NOT NULL,
+    tcg_desc TEXT DEFAULT NULL
 );
 
 CREATE TABLE cards (
     card_id SERIAL PRIMARY KEY,
     card_name VARCHAR(255) NOT NULL,
+    card_number VARCHAR(255) NOT NULL,
+    card_image VARCHAR(255) DEFAULT NULL,
     set_id INTEGER,
-    number VARCHAR(255) NOT NULL,
-    image VARCHAR(255) DEFAULT NULL,
+    tcg_id INTEGER,
+    -- TODO: HOW TO DO THIS?: has_first_edition BOOLEAN DEFAULT FALSE,
     release_date TIMESTAMPTZ DEFAULT NULL,
     artist VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (set_id) REFERENCES sets(set_id)
+    FOREIGN KEY (set_id) REFERENCES sets(set_id),
+    FOREIGN KEY (tcg_id) REFERENCES tcgs(tcg_id)
 );
+
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,

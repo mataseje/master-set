@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
 import { toSentenceCase } from "../../utils/common";
-import { getRequest, postRequest } from "../../utils/fetch" 
+import { getRequest } from "../../utils/fetch" 
 import BrowseCardItem from "../../components/Browse/BrowseCardItem";
 
 type Card = {
   card_id: number;
+  card_image: string;
   card_name: string;
-  image: string;
+  card_number: string;
   set_name: string;
-  number: string;
 }
 
 function SearchPage() {
@@ -78,9 +78,9 @@ function SearchPage() {
             <BrowseCardItem 
               id={card.card_id}
               card_name={card.card_name}
-              card_number={card.number}
+              card_number={card.card_number}
               set_name={toSentenceCase(card.set_name)}
-              image={card.image}
+              image={card.card_image}
             />
           </div>
         )) : (

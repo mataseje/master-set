@@ -10,10 +10,10 @@ import "./Browse.css"
 
 type Card = {
   card_id: number;
+  card_image: string;
   card_name: string;
-  image: string;
+  card_number: string;
   set_name: string;
-  number: string;
 }
 
 function BrowseCards() {
@@ -31,8 +31,9 @@ function BrowseCards() {
       if (response.ok) {
         const jsonResponse = await response.json();
         setCards(jsonResponse);
+
+        // Assign the set name using the first returned card in the json response
         setCardSet(jsonResponse[0].set_name);
-        
       } else {
         console.log('response NOT OK: ', response);
       }
@@ -94,9 +95,9 @@ function BrowseCards() {
             <BrowseCardItem 
               id={card.card_id}
               card_name={card.card_name}
-              card_number={card.number}
+              card_number={card.card_number}
               set_name={toSentenceCase(card.set_name)}
-              image={card.image}
+              image={card.card_image}
             />
           </div>
         )) : (
