@@ -17,9 +17,9 @@ function BrowseCardItem({id, card_name, card_number, set_name, image}: CardDetai
            className="row border border-secondary-subtle rounded-5">
 
         {/* Left Side (Image) */}
-        <div id="card-left-img" className="col">
+        <div id="card-left-img" className="col-6">
           <Link to={`/card/${id}`}>
-            <div className="d-flex justify-content-center align-center overflow-hidden mt-2 mb-2 ms-1 rounded-4"
+            <div className="align-center overflow-hidden mt-2 mb-2 ms-1 rounded-4"
                   style={{height:"200px", 
                           width:"200px",
                         }}
@@ -37,7 +37,7 @@ function BrowseCardItem({id, card_name, card_number, set_name, image}: CardDetai
         </div>
 
         {/* Right Side (Details) */}
-        <div id="card-right-text" className="col">
+        <div id="card-right-text" className="col-6">
           <div className="card-body ms-3 mt-2">
               <h5 className="card-title">
                   {card_name}
