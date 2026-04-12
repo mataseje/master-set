@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { toSentenceCase } from "../../utils/common";
 import { getRequest } from '../../utils/fetch';
 import BreadCrumbs from "../../components/Browse/BreadCrumbs";
 import BrowseCardItem from "../../components/Browse/BrowseCardItem";
+
 
 import "./Browse.css"
 
@@ -14,6 +15,8 @@ type Card = {
   card_name: string;
   card_number: string;
   set_name: string;
+  set_slug: string;
+  tcg_id: number;
 }
 
 function BrowseCards() {
@@ -23,6 +26,7 @@ function BrowseCards() {
 
   const [cards, setCards] = useState<Card[]>([]); 
   const [cardSet, setCardSet] = useState<string>('');
+  const [cardTcg, setCardTcg] = useState<string>('');
 
   // Retrieve all cards from requested set
   const getCardList = async () => {
@@ -33,7 +37,8 @@ function BrowseCards() {
         setCards(jsonResponse);
 
         // Assign the set name using the first returned card in the json response
-        setCardSet(jsonResponse[0].set_name);
+        setCardSet(jsonResponse[0].set_slug);
+        setCardTcg(jsonResponse[0].tcg_slug);
       } else {
         console.log('response NOT OK: ', response);
       }
@@ -50,16 +55,21 @@ function BrowseCards() {
     <>
       {/* Upper Page */}
       <div className="container">
+
         {/* Bread Crumbs */}
         <BreadCrumbs 
           items={[
             {
-              label:'Sets',
-              link:'/browse'
+              label:'TCGs',
+              link:'/browse/tcgs'
             },
             {
-              label: toSentenceCase(cardSet),
-              link: location.pathname
+              label: 'Sets',
+              link: `/browse/sets/${cardTcg}`
+            },
+            {
+              label: 'Cards',
+              link: `/browse/cards/${cardSet}`
             },
           ]
           }
@@ -96,7 +106,7 @@ function BrowseCards() {
               id={card.card_id}
               card_name={card.card_name}
               card_number={card.card_number}
-              set_name={toSentenceCase(card.set_name)}
+              set_name={card.set_name}
               image={card.card_image}
             />
           </div>

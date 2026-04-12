@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 // Pages
 import BrowseCards from './pages/BrowseCards/BrowseCardsPage' 
@@ -8,6 +9,7 @@ import DashboardPage from './pages/Dashboard/DashboardPage'
 import HomePage from './pages/Home/HomePage'
 import RootLayout from './layouts/Root'
 import SearchPage from './pages/SearchPage/SearchPage'
+import BrowseTcgs from './pages/BrowseTcgs/BrowseTcgsPage'
 
 export const router = createBrowserRouter([
     {
@@ -31,19 +33,31 @@ export const router = createBrowserRouter([
         },
         {
           path: 'browse', 
+          element: <Navigate to="/browse/tcgs" />
+        },
+        {
+          // Show all TCGs
+          path: 'browse/tcgs', 
+          element: <BrowseTcgs />
+        },
+        {
+          // Show all Sets within a TCG
+          path: 'browse/sets/:tcg_slug', 
           element: <BrowseSets />
         },
         {
-          path: 'browse/set/:set', 
+          // Show all Cards within a Set
+          path: 'browse/cards/:set_slug', 
           element: <BrowseCards />
+        },
+        {
+          // Show specific card
+          path: 'card/:card_id',
+          element: <CardPage />
         },
         {
           path: 'search', 
           element: <SearchPage />
-        },
-        {
-          path: 'card/:card_id',
-          element: <CardPage />
         }
       ]
     }

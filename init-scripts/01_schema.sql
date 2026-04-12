@@ -1,23 +1,29 @@
 BEGIN;
 
-CREATE TABLE sets (
-    set_id SERIAL PRIMARY KEY,
-    set_name VARCHAR(255) UNIQUE NOT NULL,
-    num_cards SMALLINT DEFAULT NULL,
-    release_date VARCHAR(255) DEFAULT NULL
-);
-
 CREATE TABLE tcgs (
     tcg_id SERIAL PRIMARY KEY,
+    tcg_desc TEXT DEFAULT NULL,
     tcg_name VARCHAR(255) NOT NULL,
-    tcg_desc TEXT DEFAULT NULL
+    tcg_slug VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE sets (
+    set_id SERIAL PRIMARY KEY,
+    set_desc TEXT DEFAULT NULL,
+    set_name VARCHAR(255) UNIQUE NOT NULL,
+    set_slug VARCHAR(255) UNIQUE NOT NULL,
+    tcg_id INTEGER,
+    num_cards SMALLINT DEFAULT NULL,
+    release_date VARCHAR(255) DEFAULT NULL,
+    FOREIGN KEY (tcg_id) REFERENCES tcgs(tcg_id)
 );
 
 CREATE TABLE cards (
     card_id SERIAL PRIMARY KEY,
+    card_image VARCHAR(255) DEFAULT NULL,
     card_name VARCHAR(255) NOT NULL,
     card_number VARCHAR(255) NOT NULL,
-    card_image VARCHAR(255) DEFAULT NULL,
+    card_slug VARCHAR(255) NOT NULL,
     set_id INTEGER,
     tcg_id INTEGER,
     -- TODO: HOW TO DO THIS?: has_first_edition BOOLEAN DEFAULT FALSE,

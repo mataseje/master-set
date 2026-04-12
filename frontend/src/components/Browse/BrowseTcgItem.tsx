@@ -1,19 +1,18 @@
 import { Link } from "react-router-dom"
 
-  type SetDetails = {
+  type TcgDetails = {
     id: number,
-    set_name: string,
-    set_slug: string,
-    release_date: string,
-    image: string;
+    tcg_name: string,
+    tcg_slug: string,
+    tcg_image: string;
   }
 
-function BrowseSetItem({id, set_name, set_slug, release_date, image}: SetDetails) {
+function BrowseTcgItem({tcg_name, tcg_slug, tcg_image}: TcgDetails) {
 
   return (
     <>
       {/* Card Parent Div */}
-      <Link to={`/browse/cards/${set_slug}`}>
+      <Link to={`/browse/sets/${tcg_slug}`}>
         <div id="card-parent" 
              className="row border border-secondary-subtle rounded-4">
 
@@ -26,7 +25,7 @@ function BrowseSetItem({id, set_name, set_slug, release_date, image}: SetDetails
                         }}
                   >
               <img id="img-cover" 
-                  src={image} 
+                  src={tcg_image} 
                   className="rounded-4" 
                   style={{maxHeight:"100%", 
                           maxWidth:"100%",
@@ -40,12 +39,11 @@ function BrowseSetItem({id, set_name, set_slug, release_date, image}: SetDetails
           <div id="card-right-text" className="col">
             <div className="card-body ms-3 mt-2">
                 <h5 className="card-title mt-5">
-                  {set_name}
+                  {tcg_name}
                 </h5><br />
                 <p className="card-text">
                   <small className="text-muted">
                     <strong>Release Date:</strong><br/>
-                    {release_date}
                   </small>
                 </p>
             </div>
@@ -57,4 +55,4 @@ function BrowseSetItem({id, set_name, set_slug, release_date, image}: SetDetails
   )
 }
 
-export default BrowseSetItem
+export default BrowseTcgItem
