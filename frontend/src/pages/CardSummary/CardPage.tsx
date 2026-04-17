@@ -8,10 +8,10 @@ function CardPage() {
 
   type Card = {
     card_id: number;
-    name: string;
-    image: string;
-    set: string;
-    number: string;
+    card_image: string;
+    card_name: string;
+    card_number: string;
+    set_name: string;
   }
 
   const {card_id} = useParams();
@@ -20,7 +20,6 @@ function CardPage() {
 
   const getCardDetails = async () => {
       try {
-        console.log('card_id', card_id)
         const response = await getRequest(`http://localhost:3000/card/${card_id}`, null);
         if (response.ok) {
             const jsonResponse = await response.json();
@@ -42,12 +41,14 @@ function CardPage() {
     return <div>LOADING CARD INFO</div>
   }
 
+  console.log('card.image: ', card)
+
   return (
     <>
       <div className='container'>
 
         <div className='row text-center mt-5'>
-          <h2>{card.name}</h2>
+          <h2>{card.card_name}</h2>
         </div>
 
         {/*TODO: REPLACE W/ CAROUSEL https://react-slick.neostack.com/docs/example/custom-paging */}
@@ -57,7 +58,7 @@ function CardPage() {
           </div>
 
           <div className='col-6 border text-center'>
-            <img src={`../assets/${card.image}`} 
+            <img src={`../assets/${card.card_image}`} 
              className='mt-2 mb-2'
              style={{maxHeight:"350px", maxWidth:"260px"}}
              alt="" />
@@ -66,13 +67,13 @@ function CardPage() {
           {/* Description */}
           <div className='col-3 border'>
             <div className='text-center'>
-              <h3>{card.name}</h3>
+              <h3>{card.card_name}</h3>
               <br />
             </div>
             {/* Details */}
             <ul id='card-details' className='list-unstyled'>
-              <li><strong>Set:</strong> {card.set}</li>
-              <li><strong>Card Number:</strong> {card.number}</li>
+              <li><strong>Set:</strong> {card.set_name}</li>
+              <li><strong>Card Number:</strong> {card.card_number}</li>
               <li><strong>Release Date:</strong> Dec 2025</li>
             </ul>
           </div>

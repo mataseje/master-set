@@ -10,11 +10,14 @@ router.get('/:card_id', async (req, res) => {
     try {
         const card_id = req.params.card_id;
         console.log('card_id: ', card_id);
+        // TODO: Request (index, name & image) for the next card index + previous index 
         // Request all card info for the specific card
-        // Request (index, name & image) for the next card index + previous index 
-        const db_query = await db_1.default.query(`SELECT * \
-                                         FROM cards \
-                                         WHERE card_id = $1`, [card_id]);
+        const db_query = await db_1.default.query(`
+        SELECT * \
+        FROM cards \
+        INNER JOIN sets ON cards.set_id = sets.set_id \
+        INNER JOIN tcgs ON cards.tcg_id = tcgs.tcg_id \
+        WHERE cards.card_id = $1 `, [card_id]);
         const query_result = db_query.rows[0];
         return res.status(200).json(query_result);
     }
