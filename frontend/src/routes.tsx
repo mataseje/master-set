@@ -2,14 +2,17 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 
 // Pages
+import Authentication from './pages/Authentication/Authentication'
 import BrowseCards from './pages/BrowseCards/BrowseCardsPage' 
 import BrowseSets from './pages/BrowseSets/BrowseSetsPage'
+import BrowseTcgs from './pages/BrowseTcgs/BrowseTcgsPage'
 import CardPage from './pages/CardSummary/CardPage'
 import DashboardPage from './pages/Dashboard/DashboardPage'
 import HomePage from './pages/Home/HomePage'
+import PasswordReset from './pages/PasswordReset/PasswordReset'
+import Registration from './pages/Registration/Registration'
 import RootLayout from './layouts/Root'
 import SearchPage from './pages/SearchPage/SearchPage'
-import BrowseTcgs from './pages/BrowseTcgs/BrowseTcgsPage'
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +61,22 @@ export const router = createBrowserRouter([
         {
           path: 'search', 
           element: <SearchPage />
+        },
+        {
+          path: 'account', 
+          element: <Navigate to="/account/login" />
+        },
+        {
+          path: 'account/login', 
+          element: <Authentication />
+        },
+        {
+          path: 'account/register', 
+          element: <Registration />
+        },
+        {
+          path: '/reset-password', 
+          element: <PasswordReset />
         }
       ]
     }

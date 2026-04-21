@@ -1,6 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function navbar() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -26,16 +30,32 @@ function navbar() {
                 <Link to="/search" className="nav-link">Search</Link>
               </li>
               {/* TODO: Only show if signed in */}
-              <li className="nav-item">
-                <Link to="/dashboard" className="nav-link">Dashboard</Link>
-              </li>
             </ul>
 
-            {/* TODO */}
-            <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            { isLoggedIn ? (
+              <>
+                {/* TODO */}
+                Logged In
+                <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                    </li>
+                </ul>
+              </>
+            ):(
+              // Not Logged In - Show Authentication Options
+              <>
+                <ul className="navbar-nav mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <Link to="/account/login" className="nav-link">Sign In</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/account/register" className="nav-link">Register</Link>
+                  </li>
+                </ul>
+              </>
+            )}
+
           </div>
         </div>
       </nav>
