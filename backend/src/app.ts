@@ -3,6 +3,7 @@ import cors, { CorsOptions } from 'cors';
 import browse from './routes/browse'
 import card from './routes/card'
 import search from './routes/search'
+import account from './routes/account'
 
 
 const app: Express = express();
@@ -10,6 +11,7 @@ const app: Express = express();
 app.use(cors())
 app.use(express.json())
 
+app.use('/account', account);
 app.use('/browse', browse);
 app.use('/card', card);
 app.use('/search', search);
