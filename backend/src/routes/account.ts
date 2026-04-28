@@ -11,7 +11,7 @@ router.post('/register', async (req: Request, res: Response) => {
         // TODO: Add password/email characteristic validation
         // Confirm email/password was provided
         if (!email || !password) {
-            res.status(400);
+            throw new Error("Email/Password not provided.")
         }
 
         // Confirm email is not already used in database
@@ -44,6 +44,52 @@ router.post('/register', async (req: Request, res: Response) => {
             });
         } else {
             throw new Error("Unsuccessful registering email/password.")
+        }
+    } catch(e) {
+        console.error('Database query error: ', e);
+        return res.status(500).json({
+            msg: `${e}` 
+        })
+    }
+});
+
+router.post('/login', async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
+    
+        // Confirm email/password was provided
+        if (!email || !password) {
+            throw new Error("Email/Password not provided.")
+        }
+
+        // Confirm email is not already used in database
+        const user_query = await pool.query(
+            `SELECT * \
+             FROM users \
+             WHERE email = $1`, 
+            [email]
+        );
+
+        // Check that the email is within the database
+        if (user_query.rows.length === 0) {
+            return res.status(409).json({
+                error: "EMAIL_DOES_NOT_EXIST",
+                message: "No user found with that email"
+            });
+        }
+
+        const user = user_query.rows[0];
+
+        // Hash password before inserting in the database
+        const valid_password = await bcrypt.compare(password, user.password_hash);
+
+        // Confirm the entry was inserted into the database
+        if (valid_password) {
+            return res.status(200).json({
+                msg: "Successfully created account!"
+            });
+        } else {
+            throw new Error("Unsuccessful login, confirm email/password.")
         }
     } catch(e) {
         console.error('Database query error: ', e);
