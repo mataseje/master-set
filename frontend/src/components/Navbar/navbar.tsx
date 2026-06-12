@@ -1,9 +1,41 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext';
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { getRequest } from '../../utils/fetch';
 
 function navbar() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    /**
+     * Perform the required functions to logout the user
+     * 
+     * 1) Retrieve local access token from AuthContext
+     * 2) Delete refresh token from backend database
+     * 3) Delete local access token
+     * 4) Redirect user
+     */
+    const token = auth?.token;
+    if (!token) {
+      console.error('No access token found');
+      return;
+    }
+    // Delete refresh token in database
+    const logout_res = await getRequest('/auth/logout', token);
+    
+    if (logout_res.ok){
+        // Delete local access token
+        auth.logout(); 
+        // Redirect user to login screen
+        navigate('/account/login')
+    } else {
+        console.error('Failed to request backend logout')
+    }
+    console.log('test')
+
+  }
 
   return (
     <>
@@ -32,13 +64,14 @@ function navbar() {
               {/* TODO: Only show if signed in */}
             </ul>
 
-            { isLoggedIn ? (
+            {/* Check Login Status */}
+            { auth?.token ? (
               <>
-                {/* TODO */}
-                Logged In
                 <ul className="navbar-nav mb-2 mb-lg-0">
                     <li className="nav-item">
-                      <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                      {/* TODO: Implement Dashboard? */}
+                      {/* <Link to="/dashboard" className="nav-link">Dashboard</Link> */}
+                      <button className='btn btn-secondary' onClick={logout}>Logout</button>
                     </li>
                 </ul>
               </>

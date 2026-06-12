@@ -35,17 +35,26 @@ CREATE TABLE cards (
     FOREIGN KEY (tcg_id) REFERENCES tcgs(tcg_id)
 );
 
-
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULl,
     password_hash VARCHAR(255) NOT NULL,
-    is_verified BOOL DEFAULT FALSE,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    is_verified BOOL NOT NULL DEFAULT FALSE,
     validation_token VARCHAR(255) DEFAULT NULL,
-    validation_token_expiry TIMESTAMPTZ DEFAULT NULL,
-    refresh_token VARCHAR(255) DEFAULT NULL
+    validation_token_expiry TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE refresh_tokens (
+    refresh_id SERIAL PRIMARY KEY,
+    refresh_token_hash TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '24 hours'),
+    -- REVOKE CURRENTLY NOT IMPLEMENTED -- Token is deleted??
+    revoked BOOLEAN NOT NULL DEFAULT FALSE,
+    user_id INTEGER NOT NULL UNIQUE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TYPE card_condition AS ENUM('nm', 'lp', 'mp', 'hp', 'dmg');

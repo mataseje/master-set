@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { postRequest } from '../../utils/fetch';
+import { AuthContext } from '../../context/AuthContext';
 
 /**
  * This component renders all information related to the 'login' Page
@@ -8,6 +9,7 @@ import { postRequest } from '../../utils/fetch';
 
 function Authentication() {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,13 +22,21 @@ function Authentication() {
 
     // Submit credentials to backend
     const body = {email: email, password: password};
-    console.log('BODY: ', body)
     const response = await postRequest('http://localhost:3000/account/login', body, null);
 
-
     if (response.ok){
-      // TODO: Frontend Validation?
+      const json_response = await response.json();
+      console.log('json_response: ', json_response);
+
+      const token = json_response.access_token;
+      console.log('token: ', token);
+
+      // Set access token in memory
+      auth?.login(token);
+
+      // Redirect to home page
       navigate("/home");
+
 
     } else if (response.status === 409) {
       // TODO: parse error message and create alert
